@@ -1,0 +1,52 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        mavenLocal()
+        mavenCentral()
+        // 对外maven仓库
+        maven {
+            url "https://maven-other.tuya.com/repository/maven-releases/"
+        }
+        // 预发maven仓库
+        maven {
+            url "https://maven.tuya-inc.top/repository/maven-android-pre/"
+        }
+        maven {
+            url 'https://maven.google.com'
+        }
+        google()
+        maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
+        // google代理仓
+        maven { url 'https://maven.aliyun.com/repository/google' }
+    }
+    plugins {
+        id 'com.android.application' version '7.1.0-alpha03'
+        id 'com.android.library' version '7.1.0-alpha03'
+        id 'org.jetbrains.kotlin.android' version '1.5.21'
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        // 对外maven仓库
+        maven {
+            url "https://maven-other.tuya.com/repository/maven-releases/"
+        }
+        // 预发maven仓库
+        maven {
+            url "https://maven.tuya-inc.top/repository/maven-android-pre/"
+        }
+        maven {
+            url 'https://maven.google.com'
+        }
+        google()
+        maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
+        // google代理仓
+        maven { url 'https://maven.aliyun.com/repository/google' }
+    }
+}
+rootProject.name = "SR-sdk-Demo"
+include ':demo'
+//include ':smartResidenceSDK'
