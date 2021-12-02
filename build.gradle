@@ -1,0 +1,27 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        // 对外maven仓库
+        maven {
+            url "https://maven-other.tuya.com/repository/maven-releases/"
+        }
+        // 预发maven仓库
+        maven {
+            url "https://maven.tuya-inc.top/repository/maven-android-pre/"
+        }
+        maven {
+            url 'https://maven.google.com'
+        }
+        google()
+        maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
+        // google代理仓
+        maven { url 'https://maven.aliyun.com/repository/google' }
+    }
+}
