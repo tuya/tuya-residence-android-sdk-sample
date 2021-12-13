@@ -12,10 +12,6 @@ buildscript {
         maven {
             url "https://maven-other.tuya.com/repository/maven-releases/"
         }
-        // 预发maven仓库
-        maven {
-            url "https://maven.tuya-inc.top/repository/maven-android-pre/"
-        }
         maven {
             url 'https://maven.google.com'
         }
