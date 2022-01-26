@@ -2,6 +2,7 @@ package com.tuya.smart.srsdk.demo
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
@@ -28,7 +29,7 @@ import com.tuya.smart.android.common.utils.L
 import com.tuya.smart.android.network.Business
 import com.tuya.smart.android.network.http.BusinessResponse
 import com.tuya.smart.android.user.api.ILogoutCallback
-import com.tuya.smart.srsdk.R
+import com.tuya.smart.srsdk.demo.pater.R
 import com.tuya.smart.srsdk.api.site.bean.SiteBean
 import com.tuya.smart.srsdk.demo.access.*
 import com.tuya.smart.srsdk.demo.personal.PersonalManagerActivity
@@ -209,7 +210,11 @@ fun SiteList() {
 fun SiteDetail() {
     val context = LocalContext.current
     TextItem(text = "Site Detail", bottomLine = true) {
-        context.startActivity(Intent(context, SiteDetailActivity::class.java))
+        if (Global.currentSite == null) {
+            Toast.makeText(context, "current site is null!", Toast.LENGTH_LONG).show()
+        } else {
+            context.startActivity(Intent(context, SiteDetailActivity::class.java))
+        }
     }
 }
 
