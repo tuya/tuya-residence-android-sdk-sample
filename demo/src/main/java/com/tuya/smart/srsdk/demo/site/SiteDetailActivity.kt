@@ -1,5 +1,6 @@
 package com.tuya.smart.srsdk.demo.site
 
+import android.app.Activity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.compose.setContent
@@ -29,6 +30,7 @@ import com.alibaba.fastjson.JSON
 import com.tuya.sdk.home.bean.MemberResponseBean
 import com.tuya.smart.android.network.Business
 import com.tuya.smart.android.network.http.BusinessResponse
+import com.tuya.smart.android.user.api.ILogoutCallback
 import com.tuya.smart.home.sdk.bean.RoomBean
 import com.tuya.smart.srsdk.api.site.bean.InvitationMemberBean
 import com.tuya.smart.srsdk.demo.*
@@ -72,6 +74,29 @@ fun SiteDetail(viewModel: SiteDetailModel = viewModel()) {
             Text(text = "Current Site ID: ", fontSize = 18.sp)
             Text(text = siteID, fontSize = 18.sp)
         }
+        RowSpacer()
+
+        Button(onClick = {
+            TuyaSmartResidenceSdk.siteManager().removeSite(Global.currentSite?.homeId?:0L, object : Business.ResultListener<Boolean?> {
+                override fun onFailure(p0: BusinessResponse?, p1: Boolean?, p2: String?) {
+                    L.d(TAG, "removeSite: onFailure: ${p0?.errorMsg}")
+                    Toast.makeText(context, "删除失败", Toast.LENGTH_LONG).show()
+                }
+
+                override fun onSuccess(p0: BusinessResponse?, p1: Boolean?, p2: String?) {
+                    L.d(TAG, "removeSite: onSuccess: $p1")
+                    Toast.makeText(context, "删除成功", Toast.LENGTH_LONG).show()
+                    (context as Activity).finish()
+                }
+
+            })
+        }, modifier =
+        Modifier
+            .fillMaxWidth()
+            .padding(30.dp)) {
+            Text(text = "Delete Site")
+        }
+
         RowSpacer()
 
         Row(modifier = rowModifier,
@@ -170,6 +195,7 @@ class SiteDetailModel : ViewModel() {
                     p2: String?
                 ) {
                     L.d(TAG, "fetchCurrentMember: onSuccess: ${p1.toString()}")
+                    currentMember.clear()
                     p1?.run { currentMember.addAll(this) }
                 }
 

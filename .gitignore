@@ -87,3 +87,5 @@ lint/tmp/
 
 # gitignore
 t_s.bmp
+demo/release/
+/demo/tuyademo.jks

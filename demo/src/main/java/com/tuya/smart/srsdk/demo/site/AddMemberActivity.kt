@@ -33,6 +33,7 @@ import com.tuya.sdk.home.bean.InviteMessageBean
 import com.tuya.smart.android.common.utils.L
 import com.tuya.smart.android.network.Business
 import com.tuya.smart.android.network.http.BusinessResponse
+import com.tuya.smart.home.sdk.anntation.MemberRole
 import com.tuya.smart.home.sdk.bean.MemberWrapperBean
 import com.tuya.smart.srsdk.api.site.bean.MemberBean
 import com.tuya.smart.srsdk.api.site.interfaces.IFamilyDataCallback
@@ -63,6 +64,7 @@ fun AddMember(viewModel: AddMemberModel = viewModel()) {
     val context = LocalContext.current
     var countryCode by rememberSaveable { mutableStateOf(Global.countryCode) }
     var nickname by rememberSaveable { mutableStateOf("") }
+    var role by rememberSaveable { mutableStateOf(0) }
     var account by rememberSaveable { mutableStateOf("") }
     var invitationCode by rememberSaveable { viewModel.invitationCode }
     var invitationId by rememberSaveable { mutableStateOf(0L) }
@@ -93,7 +95,14 @@ fun AddMember(viewModel: AddMemberModel = viewModel()) {
             singleLine = true
         )
 
-        Button(onClick = { viewModel.addMember(countryCode, nickname, account) },
+        OutlinedTextField(
+            value = role.toString(),
+            onValueChange = { role = it.toInt() },
+            label = { Text("Role") },
+            modifier = Modifier.fillMaxWidth(),
+            singleLine = true
+        )
+        Button(onClick = { viewModel.addMember(countryCode, nickname, account, role) },
             modifier = buttonModifier
         ) {
             Text(text = "Add Member")
@@ -184,11 +193,12 @@ class AddMemberModel : ViewModel() {
         fetchInvitationRecordList()
     }
 
-    fun addMember(countryCode: String, nickname: String, account: String) {
+    fun addMember(countryCode: String, nickname: String, account: String, role: Int) {
         val memberWrapperBean = MemberWrapperBean.Builder()
             .setAccount(account)
             .setCountryCode(countryCode)
             .setNickName(nickname)
+            .setRole(role)
             .setHomeId(Global.currentSite?.homeId ?: return)
             .build()
         TuyaSmartResidenceSdk.siteManager().addMember(memberWrapperBean,

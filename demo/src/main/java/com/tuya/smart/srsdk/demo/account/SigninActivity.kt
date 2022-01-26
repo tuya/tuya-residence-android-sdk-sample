@@ -1,5 +1,6 @@
 package com.tuya.smart.srsdk.demo.account
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -40,6 +41,10 @@ class SigninActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         TuyaSmartSdk.init(application)
+        if (intent.flags and Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT != 0) {
+            finish()
+            return
+        }
         setContent {
             SigninView()
         }
@@ -65,7 +70,9 @@ private fun SigninView() {
             value = password,
             onValueChange = { password = it },
             label = { Text("Password") },
-            modifier = Modifier.fillMaxWidth().padding(top = 20.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 20.dp),
             singleLine = true
         )
         Button(onClick = { TuyaSmartResidenceSdk.account().loginByEmail(Global.countryCode,
@@ -77,24 +84,27 @@ private fun SigninView() {
 
                 override fun onSuccess(p0: BusinessResponse?, p1: User?, p2: String?) {
                     context.startActivity(Intent(context, MainActivity::class.java))
+                    (context as Activity).finish()
                 }
 
             }) }, modifier =
         Modifier
             .fillMaxWidth()
-            .padding(start = 30
-            .dp,
-            end = 30.dp, top = 20.dp
-        )) {
+            .padding(
+                start = 30
+                    .dp,
+                end = 30.dp, top = 20.dp
+            )) {
             Text(text = "Sign in")
         }
         Button(onClick = { context.startActivity(Intent(context, SignupActivity::class.java)) },
             modifier =
-        Modifier
-            .fillMaxWidth()
-            .padding(start = 30.dp,
-            end = 30.dp, top = 20.dp
-        )) {
+            Modifier
+                .fillMaxWidth()
+                .padding(
+                    start = 30.dp,
+                    end = 30.dp, top = 20.dp
+                )) {
             Text(text = "Sign up")
         }
     }
