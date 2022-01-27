@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.tuya.smart.srsdk.demo.pater">
+    package="com.tuya.smart.srsdk.demo">
     <application
         android:name="com.tuya.smart.srsdk.demo.TuyaSmartApp"
         android:allowBackup="false"
@@ -14,10 +14,10 @@
 
         <meta-data
             android:name="TUYA_SMART_APPKEY"
-            android:value="99pyp3mj8srh5h4ttpgw" />
+            android:value="" />
         <meta-data
             android:name="TUYA_SMART_SECRET"
-            android:value="g4dr4es7ws3n85jtctqn9wtcmvd3h77j" />
+            android:value="" />
 
         <activity
             android:name="com.tuya.smart.srsdk.demo.account.SigninActivity"
