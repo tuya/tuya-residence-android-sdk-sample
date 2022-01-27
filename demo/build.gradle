@@ -42,20 +42,6 @@ android {
         pickFirst 'lib/x86/libc++_shared.so'
         pickFirst 'lib/x86_64/libc++_shared.so'
     }
-    signingConfigs {
-        debug {
-            storeFile file('tuyademo.jks')
-            storePassword 'tuya1234'
-            keyAlias 'tuya'
-            keyPassword 'tuya1234'
-        }
-        release {
-            storeFile file('tuyademo.jks')
-            storePassword 'tuya1234'
-            keyAlias 'tuya'
-            keyPassword 'tuya1234'
-        }
-    }
 }
 
 dependencies {
